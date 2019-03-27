@@ -112,7 +112,7 @@ public class OAuth2 {
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
         //This is hardoced sample alerts data
-        String s = " {\"event\":\"28222\",\"read\":\"28222\",\"result\":0,\"licencePlate\":\"W4U8O\",\"user\":\"sensenadmin\",\"timestamp\":\"2017-05-16T17:55:24.256+05:30\",\"location\":\"ZONE ID 12012\",\"gps\":\"estimate\",\"images\":[{\"type\":\"source\"},{\"type\":\"plate\"}]}";
+        String s = "empty string";
         connection.setFixedLengthStreamingMode(s.getBytes().length);
         PrintWriter out = new PrintWriter(connection.getOutputStream());
         System.out.println("Payload is: " + s);
@@ -132,5 +132,4 @@ public class OAuth2 {
         }
         System.out.println("result is: " + buf.toString());
     }
-
 }
