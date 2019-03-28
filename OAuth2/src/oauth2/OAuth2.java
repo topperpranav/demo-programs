@@ -25,10 +25,10 @@ import oauth2.CelloParkAuth;
  */
 public class OAuth2 {
 
-    static String ACCESS_TOKEN_URL = "https://uat.vpark.com.au/dcc/api/token";
-    static String USERNAME = "senbos";
+    static String ACCESS_TOKEN_URL = "https://vcompliance.com.au/scs/api/token";
+    static String USERNAME = "Senbos";
     static String PASSWORD = "Sensen@2019";
-    static String POST_URL = "https://uat.vpark.com.au/dcc/api/lpr";
+    static String POST_URL = "https://vcompliance.com.au/scs/api/api/lpr";
 
     /**
      * @param args the command line arguments
@@ -74,12 +74,10 @@ public class OAuth2 {
         out.close();
 
         connection.connect();
-        System.out.println(connection.getInputStream());
         //read the inputstream and print it String result; 
         BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());
         ByteArrayOutputStream buf = new ByteArrayOutputStream();
         int result2 = bis.read();
-        System.out.println("Count of response msg :" + result2);
         while (result2 != -1) {
             buf.write((byte) result2);
             result2 = bis.read();
@@ -88,8 +86,8 @@ public class OAuth2 {
         //return buf.toString();
         Gson gson = new Gson();
         CelloParkAuth cparkAuth = gson.fromJson(buf.toString(), CelloParkAuth.class);
-        System.out.println("grant_type: " + cparkAuth.getAccessToken());
-        return null;
+        System.out.println("accessToken: " + cparkAuth.getAccessToken());
+        return cparkAuth.getAccessToken();
     }
 
     /**
@@ -105,14 +103,16 @@ public class OAuth2 {
         URL url = new URL(urlString);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestProperty("Authorization", "Bearer " + accessToken);
         connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Authorization", "Bearer " + accessToken.trim());
+
         //Timeout set to 5 seconds
         connection.setConnectTimeout(5000);
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
         //This is hardoced sample alerts data
-        String s = "empty string";
+        String s = "{\"Event\":\"0bc8bb7e-a355-49aa-baf8-f16c2b098b93\",\"Read\":\"f598472e-5919-484d-ac93-4c70851eac23\",\"Result\":\"104\",\"LicencePlate\":\"XM64WG\",\"User\":\"ADMIN\",\"Timestamp\":\"14:43:38 25.03.2019\",\"Location\":\"2000101\",\"GPS\":\"0,0\",\"Images\":[]}";
+        System.out.println("Sending data: \n" + s);
         connection.setFixedLengthStreamingMode(s.getBytes().length);
         PrintWriter out = new PrintWriter(connection.getOutputStream());
         System.out.println("Payload is: " + s);
