@@ -112,6 +112,7 @@ public class OAuth2 {
         connection.setRequestMethod("POST");
         //This is hardoced sample alerts data
         String s = "{\"Event\":\"0bc8bb7e-a355-49aa-baf8-f16c2b098b93\",\"Read\":\"f598472e-5919-484d-ac93-4c70851eac23\",\"Result\":\"104\",\"LicencePlate\":\"XM64WG\",\"User\":\"ADMIN\",\"Timestamp\":\"14:43:38 25.03.2019\",\"Location\":\"2000101\",\"GPS\":\"0,0\",\"Images\":[]}";
+        //String s="{\"event\":\"125505\",\"read\":\"125505\",\"result\":0,\"licencePlate\":\"054TUN\",\"timestamp\":\"2017-09-20T11:03:34.000+05:30\",\"gps\":\"-27.4683935484,153.028569428\",\"images\":[]}";
         System.out.println("Sending data: \n" + s);
         connection.setFixedLengthStreamingMode(s.getBytes().length);
         PrintWriter out = new PrintWriter(connection.getOutputStream());
