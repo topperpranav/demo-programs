@@ -1,6 +1,7 @@
 package imagecompression;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,8 +28,8 @@ public class ImageCompression {
         File input = new File("D:\\uncompressed.jpg");
       BufferedImage image = ImageIO.read(input);
 
-      File compressedImageFile = new File("D:\\compressed.jpg");
-      OutputStream os =new FileOutputStream(compressedImageFile);
+      //File compressedImageFile = new File("D:\\compressed.jpg");
+      OutputStream os =new ByteArrayOutputStream();
 
       Iterator<ImageWriter>writers =  ImageIO.getImageWritersByFormatName("jpg");
       ImageWriter writer = (ImageWriter) writers.next();
